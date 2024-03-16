@@ -28,5 +28,5 @@ def view_pred_result(test_set, preds, num_images_to_display=5):
             break
 
     plt.tight_layout()
-    plt.savefig("Predict_result.png")
+    plt.savefig("Predict_Result.png")
     plt.show()

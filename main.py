@@ -113,8 +113,8 @@ if __name__ == '__main__':
         valid_acc.append(acc)
         print(f'Avg valid Loss: {loss}, Avg valid acc: {acc}')
 
-    Plot("Loss Curve", 'Loss', epoch_list, train_loss, valid_loss)
-    Plot("Accuracy Curve", 'Acc', epoch_list, train_acc, valid_acc)
+    Plot("Loss_Curve", 'Loss', epoch_list, train_loss, valid_loss)
+    Plot("Accuracy_Curve", 'Acc', epoch_list, train_acc, valid_acc)
 
     preds = predict(test_set, model)
     view_pred_result(test_set, preds)
