@@ -1,9 +1,7 @@
-from torch.utils.data import Dataset
-from torchvision.datasets import ImageFolder
 from tqdm import tqdm
 
 
-def train(device, model, criterion, optimizer, train_loader, epoch, total_epochs, batch_size):
+def train(model, criterion, optimizer, train_loader, epoch, total_epochs, batch_size):
     model.train()
     train_loss, train_acc = [], []
 
@@ -11,7 +9,7 @@ def train(device, model, criterion, optimizer, train_loader, epoch, total_epochs
         epoch, total_epochs, int(epoch / total_epochs * 100)), leave=False)
     epoch_loss, epoch_acc = 0.0, 0.0
     for batch_idx, (data, label) in enumerate(tqdm_iter):
-        data, target = data.to(device), label.to(device)
+        data, target = data.cuda(), label.cuda()
         output = model(data)
         loss = criterion(output, target)
         optimizer.zero_grad()

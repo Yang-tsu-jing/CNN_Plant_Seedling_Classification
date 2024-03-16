@@ -1,17 +1,13 @@
-from pathlib import Path
-
 import torch
-from PIL import Image
 from matplotlib import pyplot as plt
-from torch.utils.data import Dataset
 from tqdm import tqdm
 
 
-def predict(device, loader, model):
+def predict(loader, model):
     model.eval()
     preds = []
     for data in tqdm(loader):
-        pred = model(data.to(device))
+        pred = model(data.cuda())
         cls = torch.argmax(pred, dim=1)
         preds.append(cls)
 
@@ -32,4 +28,5 @@ def view_pred_result(test_set, preds, num_images_to_display=5):
             break
 
     plt.tight_layout()
+    plt.savefig("Predict_result.png")
     plt.show()

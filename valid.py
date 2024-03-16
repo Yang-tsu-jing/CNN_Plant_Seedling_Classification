@@ -2,7 +2,7 @@ import torch
 from tqdm import tqdm
 
 
-def valid(device, model, criterion, valid_loader, epoch, total_epochs, batch_size):
+def valid(model, criterion, valid_loader, epoch, total_epochs, batch_size):
     model.eval()
 
     tqdm_iter = tqdm(valid_loader, desc="Epoch: {}/{} ({}%) | Valid loss: NaN".format(
@@ -10,7 +10,7 @@ def valid(device, model, criterion, valid_loader, epoch, total_epochs, batch_siz
     epoch_loss, epoch_acc = 0.0, 0.0
     with torch.no_grad():
         for batch_idx, (data, label) in enumerate(tqdm_iter):
-            data, target = data.to(device), label.to(device)
+            data, target = data.cuda(), label.cuda()
             output = model(data)
             loss = criterion(output, target)
             acc = (output.argmax(dim=1) == target).float().mean().item()

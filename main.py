@@ -3,20 +3,15 @@ import os
 import torch
 from torch import nn
 from torch import optim
-from torch.nn import functional as F
 from torch.utils.data import Dataset, DataLoader, random_split
 
-from torchvision import models
-from torchvision.utils import make_grid
+
 from torchvision import transforms as tsfm
-from torchvision.datasets import ImageFolder
+
 
 import random
 import matplotlib.pyplot as plt
-from tqdm import tqdm
-from PIL import Image
-from pathlib import Path
-from IPython import display
+
 
 from model import VGG16
 from predict import predict, view_pred_result
@@ -33,6 +28,7 @@ def Plot(title, ylabel, epochs, train_loss, valid_loss):
     plt.plot(epochs, train_loss)
     plt.plot(epochs, valid_loss)
     plt.legend(['train', 'valid'], loc='upper left')
+    plt.savefig(title + ".png")
 
 
 if __name__ == '__main__':
@@ -45,11 +41,10 @@ if __name__ == '__main__':
 
     # Set Hyperparameters
     batch_size = 64
-    epochs = 1  # 50
+    epochs = 50  # 50
     learning_rate = 0.001
     train_dir = os.path.join(data_dir, 'train')
     test_dir = os.path.join(data_dir, 'test')
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
     # initial transform
     transform = tsfm.Compose([
@@ -77,7 +72,7 @@ if __name__ == '__main__':
     valid_loader = DataLoader(valid_set, batch_size=batch_size)
 
     # initial model
-    model = VGG16(num_classes=12).to(device)
+    model = VGG16(num_classes=12).cuda()
 
     # initial loss_function and optimizer
     criterion = nn.CrossEntropyLoss()
@@ -94,7 +89,6 @@ if __name__ == '__main__':
         epoch_list.append(epoch + 1)
 
         loss, acc = train(
-            device,
             model,
             criterion,
             optimizer,
@@ -108,7 +102,6 @@ if __name__ == '__main__':
         print(f'Avg train Loss: {loss}, Avg train acc: {acc}')
 
         loss, acc = valid(
-            device,
             model,
             criterion,
             valid_loader,
