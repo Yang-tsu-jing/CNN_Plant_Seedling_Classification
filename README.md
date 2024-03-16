@@ -4,7 +4,7 @@
 ![loss](PIC/Loss Curve.png)
 
 ## 2. Acc Curve
-![acc](PIC/Acc Curve.png)
+![acc](PIC/Accuracy Curve.png)
 
 ## 3. Predict Result
-![res](PIC/Pred_res.png)
+![res](PIC/Predict_ressult.png)
