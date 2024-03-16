@@ -1,10 +1,10 @@
 # ML_Assignment_1
 
 ## 1. Loss Curve
-![loss](PIC/loss curve.png)
+![loss](PIC/Loss Curve.png)
 
 ## 2. Acc Curve
-![acc](PIC/acc curve.png)
+![acc](PIC/Acc Curve.png)
 
 ## 3. Predict Result
-![res](PIC/pred_res.png)
+![res](PIC/Pred_res.png)
